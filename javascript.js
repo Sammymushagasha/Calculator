@@ -1,6 +1,7 @@
 let running_total = 0;
 let returnAns = "";
 let operatorClicked = false;
+let lastInputWasOperator = false;
 
 const btn0 = document.querySelector(".btn-0");
 const btn1 = document.querySelector(".btn-1");
@@ -22,21 +23,23 @@ const resultString = document.querySelector(".answer");
 
 function operation(str, sign, num1, num2){
     arr = str.split(/[+\-x/]/);
-    num1 = arr[0];
+    num1 = parseInt(arr[0]);
     sign = str.match(/[+\-x/]/)[0];
-    num2 = arr[1];
+    num2 = parseInt(arr[1]);
+
+    if (isNaN(num1) || isNaN(num2)) return 0;
 
     if(sign == "+"){
-        return addFunction(num1,num2);
+        return num1 + num2;
     }
     else if(sign == "-"){
-        return subFunction(num1,num2);
+        return num1 - num2;
     }
     else if(sign == "/"){
-        return divFunction(num1, num2);
+        return num1 / num2;;
     }
     else {
-        return multFunction(num1, num2);
+        return num1 * num2;
     }
 }
 
@@ -86,6 +89,7 @@ btn0.addEventListener("click", () =>{
 
     returnAns += "0";
     resultString.textContent += "0";
+    lastInputWasOperator = false;
 })
 btn1.addEventListener("click", () =>{
     if (operatorClicked) {
@@ -95,6 +99,7 @@ btn1.addEventListener("click", () =>{
 
     returnAns += "1";
     resultString.textContent += "1";
+    lastInputWasOperator = false;
 })
 btn2.addEventListener("click", () =>{
     if (operatorClicked) {
@@ -103,6 +108,7 @@ btn2.addEventListener("click", () =>{
     }
     returnAns += "2";
     resultString.textContent += "2";
+    lastInputWasOperator = false;
 })
 btn3.addEventListener("click", () =>{
     if (operatorClicked) {
@@ -111,6 +117,7 @@ btn3.addEventListener("click", () =>{
     }
     returnAns += "3";
     resultString.textContent += "3";
+    lastInputWasOperator = false;
 })
 btn4.addEventListener("click", () =>{
     if (operatorClicked) {
@@ -119,6 +126,7 @@ btn4.addEventListener("click", () =>{
     }
     returnAns += "4";
     resultString.textContent += "4";
+    lastInputWasOperator = false;
 })
 btn5.addEventListener("click", () =>{
     if (operatorClicked) {
@@ -127,6 +135,7 @@ btn5.addEventListener("click", () =>{
     }
     returnAns += "5";
     resultString.textContent += "5";
+    lastInputWasOperator = false;
 })
 btn6.addEventListener("click", () =>{
     if (operatorClicked) {
@@ -135,6 +144,7 @@ btn6.addEventListener("click", () =>{
     }
     returnAns += "6";
     resultString.textContent += "6";
+    lastInputWasOperator = false;
 })
 btn7.addEventListener("click", () =>{
     if (operatorClicked) {
@@ -143,6 +153,7 @@ btn7.addEventListener("click", () =>{
     }
     returnAns += "7";
     resultString.textContent += "7";
+    lastInputWasOperator = false;
 })
 btn8.addEventListener("click", () =>{
     if (operatorClicked) {
@@ -151,6 +162,7 @@ btn8.addEventListener("click", () =>{
     }
     returnAns += "8";
     resultString.textContent += "8";
+    lastInputWasOperator = false;
 })
 btn9.addEventListener("click", () =>{
     if (operatorClicked) {
@@ -159,26 +171,67 @@ btn9.addEventListener("click", () =>{
     }
     returnAns += "9";
     resultString.textContent += "9";
+    lastInputWasOperator = false;
 })
 btnD.addEventListener("click", () =>{
+    if (lastInputWasOperator) {
+        alert("Error");
+        return;
+    }
+    if (/[+\-x/]/.test(returnAns)) {
+        const result = operation(returnAns);
+        returnAns = result.toString();
+    }
+
     returnAns += "/";
     resultString.textContent = "/";
     operatorClicked = true;
-})
+    lastInputWasOperator = true;
+});
 btnM.addEventListener("click", () =>{
+    if (lastInputWasOperator) {
+        alert("Error");
+        return;
+    }
+    if (/[+\-x/]/.test(returnAns)) {
+        const result = operation(returnAns);
+        returnAns = result.toString();
+    }
+
     returnAns += "x";
     resultString.textContent = "x";
     operatorClicked = true;
+    lastInputWasOperator = true;
 })
 btnA.addEventListener("click", () =>{
+    if (lastInputWasOperator) {
+        alert("Error");
+        return;
+    }
+    if (/[+\-x/]/.test(returnAns)) {
+        const result = operation(returnAns);
+        returnAns = result.toString();
+    }
+
     returnAns += "+";
     resultString.textContent = "+";
     operatorClicked = true;
+    lastInputWasOperator = true;
 })
 btnS.addEventListener("click", () =>{
+    if (lastInputWasOperator) {
+        alert("Error");
+        return;
+    }
+    if (/[+\-x/]/.test(returnAns)) {
+        const result = operation(returnAns);
+        returnAns = result.toString();
+    }
+
     returnAns += "-";
     resultString.textContent = "-";
     operatorClicked = true;
+    lastInputWasOperator = true;
 })
 btnC.addEventListener("click", () =>{
     clear();
@@ -186,6 +239,7 @@ btnC.addEventListener("click", () =>{
 btnE.addEventListener("click", () =>{
     const result = operation(returnAns);
     resultString.textContent = result;
+    returnAns = result.toString();
 })
 
 
