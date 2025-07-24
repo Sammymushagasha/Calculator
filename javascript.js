@@ -20,7 +20,12 @@ const btnS = document.querySelector(".sub");
 const btnE = document.querySelector(".equal");
 const resultString = document.querySelector(".answer");
 
-function operation(sign, num1, num2){
+function operation(str, sign, num1, num2){
+    arr = str.split(/[+\-x/]/);
+    num1 = arr[0];
+    sign = str.match(/[+\-x/]/)[0];
+    num2 = arr[1];
+
     if(sign == "+"){
         return addFunction(num1,num2);
     }
@@ -39,34 +44,38 @@ function addFunction(numOne, numTwo){
     let num1 = parseInt(numOne);
     let num2 = parseInt(numTwo);
     running_total = num1 + num2;
-    return num1 + num2;
+    returnAns = "" + running_total;
+    return running_total;
 }
 
 function subFunction(numOne, numTwo){
     let num1 = parseInt(numOne);
     let num2 = parseInt(numTwo);
     running_total = num1 - num2;
-    return num1 - num2;
+    returnAns = "" + running_total;
+    return running_total;
 }
 
 function divFunction(numOne, numTwo){
     let num1 = parseInt(numOne);
     let num2 = parseInt(numTwo);
     running_total = num1 / num2;
-    return num1 / num2;
+    returnAns = "" + running_total;
+    return running_total;
 }
 
 function multFunction(numOne, numTwo){
     let num1 = parseInt(numOne);
     let num2 = parseInt(numTwo);
     running_total = num1 * num2;
-    return num1 * num2;
+    returnAns = "" + running_total;
+    return running_total;
 }
 
 function clear(){
     running_total = 0;
     resultString.textContent = "";
-    console.log(resultString);
+    returnAns = "" + running_total;
 }
 
 btn0.addEventListener("click", () =>{
@@ -175,7 +184,8 @@ btnC.addEventListener("click", () =>{
     clear();
 })
 btnE.addEventListener("click", () =>{
-    return;
+    const result = operation(returnAns);
+    resultString.textContent = result;
 })
 
 
